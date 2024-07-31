@@ -1,0 +1,21 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js"></script>
+
+
+<form id="login-form">
+    <input type="email" id="email" name="email" placeholder="Email">
+    <input type="password" id="password" name="password" placeholder="Password">
+    <button type="submit">Login</button>
+  </form>
+  <div id="errormsg" class="hidemessage">User credentials do not match</div>
+  
+
+  .hidemessage {
+    display: none;
+  }
+  
+  .showmessage {
+    display: block;
+    color: red;
+  }
+  
