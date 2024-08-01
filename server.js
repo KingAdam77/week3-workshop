@@ -3,18 +3,18 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
   });
   
   app.get('/account', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'account.html'));
+    res.sendFile(path.join(__dirname, 'account.html'));
   });
 
   app.use(express.json());
@@ -26,30 +26,16 @@ const users = [
 ];
 
 app.post('/login', (req, res) => {
+    console.log("IN API ENDPOINT")
   const { email, password } = req.body;
+  console.log("Email: ", email)
+  console.log("Password", password)
   const user = users.find(u => u.email === email && u.password === password);
   if (user) {
+    console.log("User found")
     res.json({ valid: true });
   } else {
+    console.log("User NOT found")
     res.json({ valid: false });
   }
 });
-
-
-$(document).ready(function() {
-    $('#login-form').on('submit', function(event) {
-      event.preventDefault();
-  
-      var email = $('#email').val();
-      var password = $('#password').val();
-  
-      $.post('/login', { email: email, password: password }, function(data) {
-        if (data.valid) {
-          window.location.href = '/account';
-        } else {
-          $('#errormsg').removeClass('hidemessage').addClass('showmessage');
-        }
-      });
-    });
-  });
-  
